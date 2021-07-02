@@ -17,22 +17,35 @@ window.addEventListener("load", function() {
 		let copilotName = document.querySelector("input[name=copilotName]").value;
 		let fuelLevel = document.querySelector("input[name=fuelLevel]").value;
 		let cargoMass = document.querySelector("input[name=cargoMass]").value;
-
-		if (pilotName === "" || copilotName === "" || fuelLevel === '' || isNaN(fuelLevel) || cargoMass === '' || isNaN(cargoMass) ) {
-
+		
+		
+		if (pilotName === ""  || copilotName === "" || fuelLevel === "" ||  cargoMass === "" ) {
 			alert("All fields are required!");
 			items.style.visibility = 'hidden';
-
 			launchStatus.style.color = 'black';
 			launchStatus.innerHTML = 'Awaiting Information Before Launch';
-
-		} else {
-
+         return;
+		}
+		
+		if (!isNaN(pilotName) ||  !isNaN(copilotName))	{
+			alert("Please enter a valid name!");
+			items.style.visibility = 'hidden';
+			launchStatus.style.color = 'black';
+			launchStatus.innerHTML = 'Awaiting Information Before Launch';
+			return;
+		}
+		if (isNaN(fuelLevel) || isNaN(cargoMass))	{
+			alert("Please enter a number!");
+			items.style.visibility = 'hidden';
+			launchStatus.style.color = 'black';
+			launchStatus.innerHTML = 'Awaiting Information Before Launch';
+			return;
+		}
+		 else {
 			items.style.visibility = 'visible';
-
 			document.getElementById('pilotStatus').innerHTML = `Pilot ${ pilotName + ' ' }Ready`
 			document.getElementById('copilotStatus').innerHTML = `Co-pilot ${ copilotName + ' ' }Ready`
-
+			
 			if (fuelLevel < 10000) {
 				ready = false;
 				fuelStatus.innerHTML = 'Not enough fuel for launch';
@@ -56,7 +69,7 @@ window.addEventListener("load", function() {
 				launchStatus.style.color = 'red';
 				launchStatus.innerHTML = 'Shuttle not ready for launch';
 			}
-
+			
 		}
 
 	});
